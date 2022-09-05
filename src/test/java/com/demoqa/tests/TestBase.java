@@ -6,6 +6,7 @@ import com.demoqa.helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class TestBase {
@@ -16,12 +17,17 @@ public class TestBase {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
-
         Configuration.browserCapabilities = capabilities;
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-
+        if (Configuration.remote != null) {
+            Configuration.browser = System.getProperty("browser_name");
+            Configuration.browserVersion = System.getProperty("browser_version");
+            Configuration.browserSize = System.getProperty("browser_size");
+            Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        } else {
+            Configuration.browser = "chrome";
+            Configuration.browserSize = "1920x1080";
+        }
     }
 
     @AfterEach
@@ -32,3 +38,5 @@ public class TestBase {
         Attach.addVideo();
     }
 }
+
+

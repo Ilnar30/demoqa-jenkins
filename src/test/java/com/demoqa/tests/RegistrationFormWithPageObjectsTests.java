@@ -1,6 +1,7 @@
 package com.demoqa.tests;
 
 import com.demoqa.pages.RegistrationFormPage;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.qameta.allure.Allure.step;
@@ -9,6 +10,7 @@ public class RegistrationFormWithPageObjectsTests extends TestBase {
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
 
     @Test
+    @Tag("pageObject")
     void fillFormTest() {
 
 

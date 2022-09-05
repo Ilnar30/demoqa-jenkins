@@ -1,6 +1,7 @@
 package com.demoqa.tests;
 
 import com.demoqa.pages.RegistrationFormPage;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.demoqa.tests.TestData.*;
@@ -8,10 +9,12 @@ import static io.qameta.allure.Allure.step;
 
 
 public class RegistrationFormWithFakerTests extends TestBase {
+
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
 
 
     @Test
+    @Tag("faker")
     void fillFormTest() {
 
         step("Open registration form ", () -> {
