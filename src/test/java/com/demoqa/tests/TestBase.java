@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class TestBase {
+    static String remoteUrl;
     @BeforeAll
     static void configure() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
@@ -19,17 +20,17 @@ public class TestBase {
         capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
         Configuration.baseUrl = "https://demoqa.com";
-        if (Configuration.remote != null) {
-            Configuration.browser = System.getProperty("browser_name");
+        remoteUrl = System.getProperty("remote_url");
+        if (remoteUrl!= null) {
+            Configuration.browser = System.getProperty("browser_name", "chrome");
             Configuration.browserVersion = System.getProperty("browser_version");
-            Configuration.browserSize = System.getProperty("browser_size");
+            Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
             Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         } else {
             Configuration.browser = "chrome";
             Configuration.browserSize = "1920x1080";
         }
     }
-
     @AfterEach
     void addAttachments() {
         Attach.screenshotAs("Last screenshot");
