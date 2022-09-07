@@ -16,19 +16,15 @@ public class TestBase {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
         Configuration.browserCapabilities = capabilities;
         Configuration.baseUrl = "https://demoqa.com";
-        remoteUrl = System.getProperty("remote_url");
-        if (remoteUrl!= null) {
-            Configuration.browser = System.getProperty("browser_name", "chrome");
-            Configuration.browserVersion = System.getProperty("browser_version");
-            Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
-            Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-        } else {
-            Configuration.browser = "chrome";
-            Configuration.browserSize = "1920x1080";
+        Configuration.browser = System.getProperty("browser_name", "chrome");
+        Configuration.browserVersion = System.getProperty("browser_version");
+        Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
+        if ((System.getProperty("selenide.remote") != null)) {
+            Configuration.remote = System.getProperty("selenide.remote");
+            capabilities.setCapability("enableVNC", true);
+            capabilities.setCapability("enableVideo", true);
         }
     }
     @AfterEach
@@ -36,7 +32,9 @@ public class TestBase {
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.browserConsoleLogs();
-        Attach.addVideo();
+        if (System.getProperty("selenide.remote") != null) {
+            Attach.addVideo();
+        }
     }
 }
 
