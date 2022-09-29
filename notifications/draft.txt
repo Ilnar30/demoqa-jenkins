@@ -1,0 +1,8 @@
+5649989975:AAEiTANRGAv6WA0ZnsM4r1PqfzlTTPKXghA
+-1001721269663
+
+https://api.telegram.org/bot5649989975:AAEiTANRGAv6WA0ZnsM4r1PqfzlTTPKXghA/getUpdates
+
+curl -i -X GET "https://api.telegram.org/bot5649989975:AAEiTANRGAv6WA0ZnsM4r1PqfzlTTPKXghA/sendMessage?chat_id=-1001721269663&text=hello"
+
+java "-DconfigFile=notifications/telegram.json" -jar notifications/allure-notifications-4.2.1.jar
